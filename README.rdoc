@@ -1,0 +1,3 @@
+= kohasuomi_vote
+
+Description goes here
