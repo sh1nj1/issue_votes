@@ -7,7 +7,8 @@ module KohaSuomiIssueVotes
         base.class_eval do
           unloadable
 
-          has_many :issue_votes, :class_name => 'IssueVote', :dependent => :destroy, :inverse_of => :issue
+#          has_many :issue_votes, :class_name => 'IssueVote', :dependent => :destroy, :inverse_of => :issue
+          has_many :issue_votes, :dependent => :destroy, :inverse_of => :issue
 
         end
 
@@ -17,6 +18,6 @@ module KohaSuomiIssueVotes
   end
 end
 
-unless Issue.included_modules.include?(KohaSuomiIssueVotes::Patches::IssuePatch)
-  Issue.send(:include, KohaSuomiIssueVotes::Patches::IssuePatch)
-end
+#unless Issue.included_modules.include?(KohaSuomiIssueVotes::Patches::IssuePatch)
+#  Issue.send(:include, KohaSuomiIssueVotes::Patches::IssuePatch)
+#end

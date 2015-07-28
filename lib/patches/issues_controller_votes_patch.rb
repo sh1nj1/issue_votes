@@ -34,7 +34,7 @@ module KohaSuomiIssueVotes
           @time_entry = TimeEntry.new(:issue => @issue, :project => @issue.project)
           @relation = IssueRelation.new
 
-          # Issue votes plugin: check the vote count for this issue & test whether
+          # Issue votes plugin: check the vote count this issue & test whether
           # this user has already voted on this issue
           @votes_for_issue = IssueVote.where(issue_id: @issue.id).sum(:vote_value)
           @already_voted = IssueVote.find_by(:issue_id => @issue.id, :user_id => User.current.id)

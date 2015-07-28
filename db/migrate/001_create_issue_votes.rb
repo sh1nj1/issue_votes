@@ -1,3 +1,4 @@
+# Create a table to maintain information on individual votes cast
 class CreateIssueVotes < ActiveRecord::Migration
   def change
     create_table :issue_votes do |t|

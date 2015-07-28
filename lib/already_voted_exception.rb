@@ -1,0 +1,3 @@
+class AlreadyVotedException < Exception
+
+end
