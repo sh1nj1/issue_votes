@@ -1,3 +1,4 @@
+require_dependency 'vote_validator'
 class IssueVote < ActiveRecord::Base
   unloadable
 
@@ -5,10 +6,13 @@ class IssueVote < ActiveRecord::Base
   belongs_to :issue, :class_name => 'Issue', :foreign_key => 'issue_id'
   belongs_to :user, :class_name => 'User', :foreign_key => 'user_id'
 
+  validates :user_id, :issue_id, presence: true
+  validates_with VoteValidator
+
   attr_protected :id
 
-  def valid_vote?(user = User.current)
-    return if IssueVote.find(:user_id => user_id, :issue_id => issue_id)
-  end
+#  def valid_vote?(user = User.current)
+#    return if IssueVote.find(:user_id => user_id, :issue_id => issue_id)
+#  end
 
 end

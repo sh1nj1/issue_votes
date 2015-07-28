@@ -1,0 +1,13 @@
+.icon-vote-issue {
+  margin-left: 10px;
+  background: rgba(0, 0, 0, 0) url("/images/add.png") no-repeat scroll 0 50%;
+}
+
+.icon-already-voted {
+  margin-left: 10px;
+  background: rgba(0, 0, 0, 0) url("/images/true.png") no-repeat scroll 0 50%;
+}
+
+.icon-remove-vote {
+  background: rgba(0, 0, 0, 0) url("/images/cancel.png") no-repeat scroll 0 50%;
+}
