@@ -1,6 +1,6 @@
 # Issue votes
 
-Issue votes plugin bring a Redmine 3.x.x compatible voting module to issues.
+Issue votes plugin brings a Redmine 3.x.x compatible voting module that integrates with issues seamlessly.
 
 ## Documentation ##
 
