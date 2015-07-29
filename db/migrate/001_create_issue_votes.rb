@@ -8,6 +8,8 @@ class CreateIssueVotes < ActiveRecord::Migration
       t.column :voteable_id, :integer, :default => 0, :null => false
       t.integer :vote_value, :default => 1
     end
+    add_index :issue_votes, [:user_id], :name => 'fk_issue_votes_user'
+    add_index :issue_votes, [:voteable_id, :voteable_type], :name => 'fk_issue_votes_voteable'
   end
 end
 
