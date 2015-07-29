@@ -15,6 +15,8 @@ module KohaSuomiIssueVotes
 
       module InstanceMethods
 
+
+
         def show_with_votes
           @journals = @issue.journals.includes(:user, :details).
             references(:user, :details).

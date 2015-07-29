@@ -9,7 +9,7 @@ module KohaSuomiIssueVotes
 
       module ClassMethods
         def acts_as_voteable
-          has_many :issue_votes, :as => :voteable, :dependent => :delete_all
+          has_many :issue_votes, :as => :voteable, :dependent => :destroy
           include KohaSuomiIssueVotes::Acts::Voteable::InstanceMethods
         end
       end
@@ -25,12 +25,14 @@ module KohaSuomiIssueVotes
           vote = IssueVote.new
           vote.user_id = User.current.id
           vote.issue_id = self.id
+          vote.voteable = self
           unless weight_value_user.nil?
             vote.vote_value = weight_value_user
           end
-
-          unless vote.save
-            raise AlreadyVotedException, ''
+          if vote.save
+#            self.votes_total += vote.vote_value
+          else
+            raise AlreadyVotedException, 'Already voted on issue'
           end
         end
 

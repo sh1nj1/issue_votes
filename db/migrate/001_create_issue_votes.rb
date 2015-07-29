@@ -4,6 +4,8 @@ class CreateIssueVotes < ActiveRecord::Migration
     create_table :issue_votes do |t|
       t.integer :issue_id
       t.integer :user_id
+      t.column :voteable_type, :string, :default => '', :null => false
+      t.column :voteable_id, :integer, :default => 0, :null => false
       t.integer :vote_value, :default => 1
     end
   end

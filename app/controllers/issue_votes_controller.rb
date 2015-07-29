@@ -38,18 +38,12 @@ class IssueVotesController < ApplicationController
 #    end
 #    redirect_to home_url + 'issues/' + vote.issue_id.to_s
     issue = Issue.find(params[:issue_id])
-    weight_custom_field = CustomField.find_by(:name => 'Vote weight')
-    if weight_custom_field
-      weight_value_user = User.current.custom_value_for(weight_custom_field).value
-    end
-
     begin
       issue.vote
       flash[:notice] = 'Vote registered successfully!'
     rescue AlreadyVotedException => e
       flash[:error] = e.to_s
     end
-
     redirect_to home_url + 'issues/' + vote.issue_id.to_s
   end
 
