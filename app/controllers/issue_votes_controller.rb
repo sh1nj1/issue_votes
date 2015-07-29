@@ -8,35 +8,37 @@ class IssueVotesController < ApplicationController
   end
 
   def vote
-
-    weight_custom_field = CustomField.find_by(:name => 'Vote weight')
-    if weight_custom_field
-      weight_value_user = User.current.custom_value_for(weight_custom_field).value
-  #    weight_value_user = CustomValue.where(:customized_id => User.current.id, :custom_field_id => weight_field_id)
-    end
-
-    vote = IssueVote.new
-    vote.user_id = User.current.id
-    vote.issue_id = params[:issue_id]
-    unless weight_value_user.nil?
-      vote.vote_value = weight_value_user
-    end
-    if vote.save
-      flash[:notice] = 'Vote registered successfully!'
+    issue = Issue.find(params[:issue_id])
+    if issue.nil?
+      flash[:error] = 'Issue not found.'
+      redirect_to home_url + issues
     else
-      errors = vote.errors.full_messages.to_s.gsub('[', '')
-      errors = errors.gsub(']', '')
-      flash[:error] = 'Voting failed: ' + errors
-    end
-    redirect_to home_url + 'issues/' + vote.issue_id.to_s
-  end
-
-  def remove_vote
-    if IssueVote.where(:user_id => User.current.id, :issue_id => params[:issue_id]).delete_all
-      flash[:notice] = 'Vote removed succesfully'
-    else
-      flash[:error] = 'Could not find vote for the user and issue'
+      begin
+        issue.vote
+        issue.save
+        flash[:notice] = 'Vote added successfully!'
+      rescue Exception => e
+        flash[:error] = 'Voting failed: ' + e.to_s
+      end
     end
     redirect_to home_url + 'issues/' + params[:issue_id]
   end
+
+  def remove_vote
+    issue = Issue.find(params[:issue_id])
+    if issue.nil?
+      flash[:error] = 'Issue not found.'
+      redirect_to home_url + issues
+    else
+      begin
+        issue.remove_vote
+        issue.save
+        flash[:notice] = 'Vote removed successfully!'
+      rescue Exception => e
+        flash[:error] = 'Vote removal failed: ' + e.to_s
+      end
+    end
+    redirect_to home_url + 'issues/' + params[:issue_id]
+  end
+
 end

@@ -1,6 +1,7 @@
 Rails.configuration.to_prepare do
   require_dependency 'hooks/issue_view_hook'
   require_dependency 'hooks/html_header_hook'
+  require_dependency 'patches/issue_query_patch'
   require_dependency 'patches/issue_patch'
   require_dependency 'patches/issues_controller_votes_patch'
   require_dependency 'patches/user_patch'
@@ -19,5 +20,8 @@ Redmine::Plugin.register :issue_votes do
     permission :vote_issue, :issue_votes => :vote
 #    permission :view_votes, {:issues => :view_votes}, :require => :loggedin
 #    permission :view_voter, {:issues => :view_voter}, :require => :loggedin
+  end
+  Redmine::Activity.map do |activity|
+    activity.register(:issue_votes, {:class_name => 'IssueVote'})
   end
 end
