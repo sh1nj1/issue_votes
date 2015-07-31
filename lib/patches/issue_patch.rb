@@ -15,11 +15,14 @@ module KohaSuomiIssueVotes
 
       module InstanceMethods
 
-        # Adds a vote for this issue for the current user.
+        # Adds a vote for this issue for the current user. No params needed (user = user.Current).
         def vote
 
           weight_custom_field = CustomField.find_by(:name => 'Vote weight')
-          weight_value_user = User.current.custom_value_for(weight_custom_field).value
+          weight_value_user = 1
+          if weight_custom_field
+            weight_value_user = User.current.custom_value_for(weight_custom_field).value
+          end
 
           vote = IssueVote.new
           vote.user_id = User.current.id
@@ -37,11 +40,14 @@ module KohaSuomiIssueVotes
           end
         end
 
-        # Removes the current user's vote from this issue.
+        # Removes the current user's vote from this issue. No params needed (user = user.Current).
         def remove_vote
 
           weight_custom_field = CustomField.find_by(:name => 'Vote weight')
-          weight_value_user = User.current.custom_value_for(weight_custom_field).value
+          weight_value_user = 1
+          if weight_custom_field
+            weight_value_user = User.current.custom_value_for(weight_custom_field).value
+          end
 
           if IssueVote.where(:user_id => User.current.id, :issue_id => self.id).delete_all
             self.votes_total -= weight_value_user.to_i
