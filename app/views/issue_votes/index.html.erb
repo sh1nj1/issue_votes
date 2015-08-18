@@ -7,7 +7,7 @@
 <div id="votes-wrapper">
 
   <div id="votes-container">
-    <table id="table_votes" class="display">
+    <table id="table_votes" class="display" style="width:100%">
       <thead>
         <tr>
           <th><%= l(:field_login) %></th>
@@ -20,11 +20,11 @@
       <tbody>
       <% @votes_rows.each do |user_vote| %>
         <tr>
-          <td><a href="/users/<%= user_vote[:user_id] %>"><%= user_vote[:login] %></a></td>
-          <td><%= user_vote[:name] %></td>
-          <td><%= mail_to(user_vote[:mail]) %></td>
-          <td><%= format_time(user_vote[:voted_on]) %></td>
-          <td><%= user_vote[:vote_value] %></td>
+          <td><a href="/users/<%= user_vote[:user_id] %>"><%= user_vote[:Login] %></a></td>
+          <td><%= user_vote[:Name] %></td>
+          <td><%= mail_to(user_vote[:Mail]) %></td>
+          <td><%= format_time(user_vote[:'Voted on']) %></td>
+          <td><%= user_vote[:'Vote value'] %></td>
         </tr>
       <% end %>
       </tbody>
@@ -32,7 +32,7 @@
   </div>
 
   <div id="votes-org-container">
-    <table id="table_votes_org" class="display">
+    <table id="table_votes_org" class="display" style="width:100%">
       <thead>
       <tr>
         <th><%= l(:field_organization) %></th>
@@ -48,6 +48,8 @@
       <% end %>
       </tbody>
     </table>
+    <% other_formats_links do |f| %>
+      <%= f.link_to 'CSV', :url => params %>
+    <% end %>
   </div>
-
 </div>
