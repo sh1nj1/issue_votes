@@ -7,31 +7,17 @@ class IssueVotesController < ApplicationController
 
   # The index displays a given issue's votes in 2 distinct tables.
   def index
-    @issue_id = params[:issue_id]
-    @votes = IssueVote.where(:issue_id => @issue_id)
-#    @user_votes = []
-    @votes_rows = []
-    @votes_rows_org = {}
+    issue_id = params[:issue_id]
 
-    # Create model (rows) for the votes report table.
-    @votes.each do |vote|
-      vote_user = User.find(vote.user_id)
-      vote_org = AuthOrganization.find(vote_user.auth_organization_id).name
-      user_vote = {
-        :user_id => vote_user.id,
-        :login => vote_user.login,
-        :name => vote_user.firstname + ' ' + vote_user.lastname,
-        :mail => vote_user.mail,
-        :voted_on => vote.created_on,
-        :vote_value => vote.vote_value
-      }
-      @votes_rows << user_vote
-      if @votes_rows_org[vote_org]
-        @votes_rows_org[vote_org] += vote.vote_value
-      else
-        @votes_rows_org[vote_org] = vote.vote_value
-      end
+    # Get the models
+    @votes_rows = get_votes_report_user_model(issue_id)
+    @votes_rows_org = get_votes_report_org_model(issue_id)
+
+    respond_to do |format|
+      format.html { render :template => 'issue_votes/index' }
+      format.csv  { send_data(votes_to_csv, :type => 'text/csv; header=present', :filename => 'votes-issue-' + issue_id + '.csv') }
     end
+
   end
 
   # Voting action for the parameter-given issue.
@@ -73,5 +59,71 @@ class IssueVotesController < ApplicationController
   def get_project
     @project = Issue.find(params[:issue_id]).project
   end
+
+  # Prepares and returns a csv-file from the given issue's votes.
+  def votes_to_csv
+    encoding = l(:general_csv_encoding)
+    columns = ['Login', 'Name', 'Email', 'Vote date', 'Vote weight']
+    columns_orgs = ['Organization', 'Votes']
+    @votes_rows = get_votes_report_user_model(params[:issue_id])
+    @votes_rows_org = get_votes_report_org_model(params[:issue_id])
+
+    export = CSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+      # csv header fields
+      csv << @votes_rows.first.keys
+      # csv lines
+      @votes_rows.each do |hash|
+        csv << hash.values
+      end
+
+      # Add empty row before the org content
+      csv << [' ']
+      csv << columns_orgs
+      @votes_rows_org.each do |row|
+        csv << row
+      end
+    end
+    export
+  end
+
+  # Create and return a model (rows) for the votes report table.
+  def get_votes_report_user_model(issue_id)
+    @issue_id = issue_id
+    @votes = IssueVote.where(:issue_id => @issue_id)
+    @votes_rows = []
+    @votes.each do |vote|
+      vote_user = User.find(vote.user_id)
+      vote_org = AuthOrganization.find(vote_user.auth_organization_id).name
+      user_vote = {
+        :user_id => vote_user.id,
+        :Login => vote_user.login,
+        :Name => vote_user.firstname + ' ' + vote_user.lastname,
+        :Mail => vote_user.mail,
+        :'Voted on' => vote.created_on,
+        :'Vote value' => vote.vote_value
+      }
+      @votes_rows << user_vote
+    end
+    @votes_rows
+  end
+
+  # Create and return a model (rows) for the votes report table (organization).
+  def get_votes_report_org_model(issue_id)
+    @issue_id = issue_id
+    @votes = IssueVote.where(:issue_id => @issue_id)
+    @votes_rows_org = {}
+    @votes.each do |vote|
+      vote_user = User.find(vote.user_id)
+      vote_org = AuthOrganization.find(vote_user.auth_organization_id).name
+      if @votes_rows_org[vote_org]
+        @votes_rows_org[vote_org] += vote.vote_value
+      else
+        @votes_rows_org[vote_org] = vote.vote_value
+      end
+    end
+    @votes_rows_org
+  end
+
+  private :get_votes_report_user_model, :get_votes_report_org_model
 
 end
