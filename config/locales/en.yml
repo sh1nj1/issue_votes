@@ -1,4 +1,14 @@
 # English strings go here for Rails i18n
 en:
   field_votes_total: Votes
+  field_login: Login
+  field_firstname: First name
+  field_lastname: Last name
+  field_name: Name
+  field_voted_on: Vote date
+  field_vote_value: Vote weight
+  field_mail: Email
+  field_organization: Organization
+  field_votes_plural: Votes
   label_issue_vote_plural: Issue votes
+  button_votes: Votes

@@ -13,6 +13,19 @@ module KohaSuomiIssueVotes
 
       end
 
+      module ClassMethods
+
+      end
+
+      module InstanceMethods
+
+        # Finds this user's vote for the given issue or returns nil
+        def find_vote(issue_id)
+          nil if issue_id.nil?
+
+          IssueVote.find_by(:user_id => self.id, :issue_id => issue_id)
+        end
+      end
     end
   end
 end

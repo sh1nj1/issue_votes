@@ -4,4 +4,5 @@
 RedmineApp::Application.routes.draw do
   match 'issue_votes/vote', :to => 'issue_votes#vote', :via => [:get, :post]
   match 'issue_votes/remove', :to => 'issue_votes#remove_vote', :via => [:get, :post]
+  match 'issue_votes/:issue_id', :to => 'issue_votes#index', :via => [:get]
 end

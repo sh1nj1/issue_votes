@@ -8,8 +8,6 @@ Rails.configuration.to_prepare do
   require_dependency 'patches/project_patch'
 end
 
-require 'redmine'
-
 Redmine::Plugin.register :issue_votes do
   name 'Issue votes plugin'
   author 'Juhani Seppala'
@@ -18,9 +16,9 @@ Redmine::Plugin.register :issue_votes do
   url 'vaarakirjastot.fi'
   author_url 'https://github.com/jseplae'
   project_module :issue_votes do
-    permission :vote_issue, :issue_votes => :vote # Permission to cast a vote on an issue.
+    permission :vote_issue, :issue_votes => [:vote, :remove_vote] # Permission to cast a vote on an issue.
     permission :view_vote_activities, :issue_votes => :index # Permission to view users's votes in a project's /activities -tab
-#    permission :view_votes, :issue_votes => :index
+    permission :view_votes, :issue_votes => :index
   end
   Redmine::Activity.map do |activity|
     activity.register(:issue_votes, {:class_name => 'IssueVote'})

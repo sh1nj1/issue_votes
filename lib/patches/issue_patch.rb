@@ -23,7 +23,6 @@ module KohaSuomiIssueVotes
           if weight_custom_field
             weight_value_user = User.current.custom_value_for(weight_custom_field).value
           end
-
           vote = IssueVote.new
           vote.user_id = User.current.id
           vote.issue_id = self.id
@@ -33,6 +32,7 @@ module KohaSuomiIssueVotes
           end
           if vote.save
             self.votes_total += weight_value_user.to_i
+            logger.info('Vote cast: ' + vote.to_s)
           else
             errors = vote.errors.full_messages.to_s.gsub('[', '')
             errors = errors.gsub(']', '')

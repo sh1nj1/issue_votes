@@ -11,3 +11,17 @@
 .icon-remove-vote {
   background: rgba(0, 0, 0, 0) url("/images/cancel.png") no-repeat scroll 0 50%;
 }
+
+#votes-wrapper {
+
+}
+
+#votes-container {
+  width: 800px;
+}
+
+#votes-org-container {
+  margin-top: 10px;
+  width: 400px;
+}
+

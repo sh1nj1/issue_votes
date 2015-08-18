@@ -3,9 +3,9 @@ class IssueVote < ActiveRecord::Base
   unloadable
 
   self.table_name = 'issue_votes'
-  belongs_to :issue
-  belongs_to :project
-  belongs_to :user
+  belongs_to :issue, :class_name => 'Issue', :foreign_key => 'issue_id'
+  belongs_to :project, :class_name => 'Project', :foreign_key => 'project_id'
+  belongs_to :user, :class_name => 'User', :foreign_key => 'user_id'
 
   validates :user_id, :issue_id, presence: true
 
@@ -27,7 +27,7 @@ class IssueVote < ActiveRecord::Base
 
   acts_as_activity_provider :type => "issue_votes",
                             :scope => preload({:issue => :project}, :user).
-                              joins("LEFT JOIN #{Project.table_name} ON #{IssueVote.table_name}.project_id =  #{Project.table_name}.id"),
+                              joins("LEFT JOIN #{Project.table_name} ON #{IssueVote.table_name}.project_id=#{Project.table_name}.id"),
                             :timestamp => "#{IssueVote.table_name}.created_on",
                             :author_key => "#{IssueVote.table_name}.user_id",
                             :permission => :view_vote_activities
@@ -41,6 +41,10 @@ class IssueVote < ActiveRecord::Base
 
   def project
     self.issue.project if self.issue
+  end
+
+  def to_s
+    return self.user.name + ': ' + self.vote_value.to_s
   end
 
 #  def valid_vote?(user = User.current)

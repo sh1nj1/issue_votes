@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' %>
+<%= javascript_include_tag '//cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js' %>
+<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js' %>
+<%= stylesheet_link_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' %>
+<%= stylesheet_link_tag '//cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css' %>
+
+<div id="votes-wrapper">
+
+  <div id="votes-container">
+    <table id="table_votes" class="display">
+      <thead>
+        <tr>
+          <th><%= l(:field_login) %></th>
+          <th><%= l(:field_name) %></th>
+          <th><%= l(:field_mail) %></th>
+          <th><%= l(:field_voted_on) %></th>
+          <th><%= l(:field_vote_value) %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @votes_rows.each do |user_vote| %>
+        <tr>
+          <td><a href="/users/<%= user_vote[:user_id] %>"><%= user_vote[:login] %></a></td>
+          <td><%= user_vote[:name] %></td>
+          <td><%= mail_to(user_vote[:mail]) %></td>
+          <td><%= format_time(user_vote[:voted_on]) %></td>
+          <td><%= user_vote[:vote_value] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="votes-org-container">
+    <table id="table_votes_org" class="display">
+      <thead>
+      <tr>
+        <th><%= l(:field_organization) %></th>
+        <th><%= l(:field_votes_plural) %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @votes_rows_org.each do |key, org_votes| %>
+        <tr>
+          <td><%= key  %></td>
+          <td><%= org_votes %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
