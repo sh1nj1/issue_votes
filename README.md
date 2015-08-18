@@ -10,3 +10,4 @@ The Issue Votes plugin adds voting functionality to issues, allowing a project t
 
 * Voting for an issue requires the admin to toggle the 'vote issue' permission for the wanted roles.
 * Viewing vote-related activities under a project's /activities -tab requires the 'view vote activities' permission.
+* Viewing the voting report for an issue requires the admin to toggle the 'view votes' permission for the wanted roles.

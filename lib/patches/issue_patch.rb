@@ -17,7 +17,7 @@ module KohaSuomiIssueVotes
 
         # Adds a vote for this issue for the current user. No params needed (user = user.Current).
         def vote
-
+          # Get the vote weight custom field value for this user.
           weight_custom_field = CustomField.find_by(:name => 'Vote weight')
           weight_value_user = 1
           if weight_custom_field
@@ -42,7 +42,7 @@ module KohaSuomiIssueVotes
 
         # Removes the current user's vote from this issue. No params needed (user = user.Current).
         def remove_vote
-
+          # Get the vote weight custom field value for this user.
           weight_custom_field = CustomField.find_by(:name => 'Vote weight')
           weight_value_user = 1
           if weight_custom_field
