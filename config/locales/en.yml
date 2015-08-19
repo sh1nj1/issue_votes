@@ -9,7 +9,10 @@ en:
   field_vote_value: Vote weight
   field_mail: Email
   field_organization: Organization
+  field_voting_organization: Voting organization
   field_votes_plural: Votes
   label_issue_vote_plural: Issue votes
-  auth_organization_plural: Auth organizations
+  voting_organization_plural: Voting organizations
   button_voting_report: Voting report
+  label_voting_organization_new: New voting organization
+  notice_voting_organization_successful_create: New voting organization succesfully created!

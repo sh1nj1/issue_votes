@@ -93,7 +93,7 @@ class IssueVotesController < ApplicationController
     @votes_rows = []
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = AuthOrganization.find(vote_user.auth_organization_id).name
+      vote_org = VotingOrganization.find(vote_user.auth_organization_id).name
       user_vote = {
         :user_id => vote_user.id,
         :Login => vote_user.login,
@@ -114,7 +114,7 @@ class IssueVotesController < ApplicationController
     @votes_rows_org = {}
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = AuthOrganization.find(vote_user.auth_organization_id).name
+      vote_org = VotingOrganization.find(vote_user.auth_organization_id).name
       if @votes_rows_org[vote_org]
         @votes_rows_org[vote_org] += vote.vote_value
       else

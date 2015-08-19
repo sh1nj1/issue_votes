@@ -1,4 +1,3 @@
-require_dependency 'issue'
 module KohaSuomiIssueVotes
   module Patches
   # Patches or modifies Redmine core dynamically

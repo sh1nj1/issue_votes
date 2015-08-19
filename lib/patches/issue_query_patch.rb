@@ -1,5 +1,3 @@
-require_dependency 'query'
-
 module KohaSuomiIssueVotes
   module Patches
     module IssueQueryPatch

@@ -8,6 +8,7 @@ module KohaSuomiIssueVotes
           unloadable
 
           has_many :issue_votes, :class_name => 'IssueVote', :dependent => :destroy, :inverse_of => :user
+          belongs_to :voting_organization, :class_name => 'VotingOrganization', :dependent => :destroy, :inverse_of => :user
 
         end
 
