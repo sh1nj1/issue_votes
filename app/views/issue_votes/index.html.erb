@@ -29,6 +29,9 @@
       <% end %>
       </tbody>
     </table>
+    <% other_formats_links do |f| %>
+      <%= f.link_to 'CSV', :url => params %>
+    <% end %>
   </div>
 
   <div id="votes-org-container">
@@ -48,8 +51,5 @@
       <% end %>
       </tbody>
     </table>
-    <% other_formats_links do |f| %>
-      <%= f.link_to 'CSV', :url => params %>
-    <% end %>
   </div>
 </div>

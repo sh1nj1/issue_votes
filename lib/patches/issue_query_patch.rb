@@ -10,7 +10,7 @@ module KohaSuomiIssueVotes
 
           unloadable
 
-          self.available_columns << QueryColumn.new(:votes_total, :sortable => "#{Issue.table_name}.votes_total")
+          self.available_columns << QueryColumn.new(:votes_total, :sortable => "#{Issue.table_name}.votes_total", :default_order => 'asc')
 
         end
 
