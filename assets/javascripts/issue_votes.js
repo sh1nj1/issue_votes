@@ -1,13 +1,13 @@
 $(function() {
 
-  if ('#table_votes') {
-    $('#table_votes').DataTable({
+  if (('#table-votes').length) {
+    $('#table-votes').DataTable({
       paging: false,
       scrollY: 350
       //    autoWidth: true,
     });
 
-    $('#table_votes_org').DataTable({
+    $('#table-votes-org').DataTable({
       paging: false,
       scrollY: 200,
       aoColumns: [
@@ -16,4 +16,13 @@ $(function() {
       ]
     });
   }
+
+  if (('#table-voting-organizations').length) {
+    $('#table-voting-organizations').DataTable({
+      paging: false,
+      scrollY: 350
+      //    autoWidth: true,
+    });
+  }
+
 });

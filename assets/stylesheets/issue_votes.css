@@ -16,6 +16,10 @@
 
 }
 
+#voting-organizations-wrapper {
+
+}
+
 #votes-container {
   width: 70%;
 }
@@ -23,5 +27,9 @@
 #votes-org-container {
   margin-top: 10px;
   width: 40%;
+}
+
+.dataTables_scroll {
+  clear: none
 }
 

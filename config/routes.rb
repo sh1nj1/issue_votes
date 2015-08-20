@@ -7,4 +7,7 @@ RedmineApp::Application.routes.draw do
   match 'issue_votes/:issue_id', :to => 'issue_votes#index', :via => [:get], :as => 'issue_votes'
   match 'voting_organizations/new', :to => 'voting_organizations#new', :via => [:get], :as => 'new_voting_organization'
   match 'voting_organizations/create', :to => 'voting_organizations#create', :via => [:post], :as => 'create_voting_organization'
+  match 'voting_organizations/edit/:id', :to => 'voting_organizations#edit', :via => [:get], :as => 'edit_voting_organization'
+  match 'voting_organizations/delete/:id', :to => 'voting_organizations#delete', :via => [:delete], :as => 'delete_voting_organization'
+  match 'voting_organizations/update/:id', :to => 'voting_organizations#update', :via => [:update, :patch], :as => 'update_voting_organization'
 end

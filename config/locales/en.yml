@@ -11,8 +11,23 @@ en:
   field_organization: Organization
   field_voting_organization: Voting organization
   field_votes_plural: Votes
+  field_user_plural: Users
+  field_created_on: Created on
+  field_edit: Edit
+  field_delete: Delete
+  label_voting_organization_edit: Edit
+  label_voting_organization_delete: Delete
   label_issue_vote_plural: Issue votes
   voting_organization_plural: Voting organizations
   button_voting_report: Voting report
-  label_voting_organization_new: New voting organization
-  notice_voting_organization_successful_create: New voting organization succesfully created!
+  button_save: Save
+  title_voting_organization_new: New voting organization
+  title_voting_organization_edit: Edit voting organization
+  label_voting_organization_confirm_delete: You are about to delete a voting organization, please confirm.
+  notice_voting_organization_successful_create: New voting organization successfully created
+  notice_voting_organization_successful_delete: Voting organization successfully deleted
+  error_voting_organization_not_found: Voting organization not found
+  error_voting_organization_failed_creation: Failed to create a new voting organization
+  error_voting_organization_failed_update: Failed to update a voting organization
+  notice_voting_organization_successful_creation: Successfully created a new voting organization
+  notice_voting_organization_successful_update: Successfully updated a voting organization

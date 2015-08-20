@@ -1,0 +1,5 @@
+<%= title [l(:label_user_plural), users_path], l(:title_voting_organization_edit) %>
+<%= labelled_form_for @voting_organization, url: {action: 'update'} do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_tag l(:button_save) %>
+<% end %>

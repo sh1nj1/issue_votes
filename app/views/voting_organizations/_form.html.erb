@@ -1,0 +1,8 @@
+<%= error_messages_for 'voting_organization' %>
+<div id="voting_organization_form">
+  <fieldset class="box tabular">
+    <legend><%=l(:label_information_plural)%></legend>
+    <p><%= f.text_field :name, :required => true, :size => 25  %></p>
+       <%= f.hidden_field :redirect_user_id, :required => true, :value => params[:redirect_user_id] %>
+  </fieldset>
+</div>

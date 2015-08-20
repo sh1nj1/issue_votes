@@ -68,22 +68,24 @@ class IssueVotesController < ApplicationController
     @votes_rows = get_votes_report_user_model(params[:issue_id])
     @votes_rows_org = get_votes_report_org_model(params[:issue_id])
 
-    export = CSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
-      # csv header fields
-      csv << @votes_rows.first.keys
-      # csv lines
-      @votes_rows.each do |hash|
-        csv << hash.values
-      end
+    if @votes_rows.count > 0
+      export = CSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+        # csv header fields
+        csv << @votes_rows.first.keys
+        # csv lines
+        @votes_rows.each do |hash|
+          csv << hash.values
+        end
 
-      # Add empty row before the org content
-      csv << [' ']
-      csv << columns_orgs
-      @votes_rows_org.each do |row|
-        csv << row
+        # Add empty row before the org content
+        csv << [' ']
+        csv << columns_orgs
+        @votes_rows_org.each do |row|
+          csv << row
+        end
       end
+      export
     end
-    export
   end
 
   # Create and return a model (rows) for the votes report table.
@@ -93,7 +95,7 @@ class IssueVotesController < ApplicationController
     @votes_rows = []
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = VotingOrganization.find(vote_user.auth_organization_id).name
+      vote_org = VotingOrganization.find(vote_user.voting_organization_id).name
       user_vote = {
         :user_id => vote_user.id,
         :Login => vote_user.login,
@@ -114,7 +116,7 @@ class IssueVotesController < ApplicationController
     @votes_rows_org = {}
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = VotingOrganization.find(vote_user.auth_organization_id).name
+      vote_org = VotingOrganization.find(vote_user.voting_organization_id).name
       if @votes_rows_org[vote_org]
         @votes_rows_org[vote_org] += vote.vote_value
       else
