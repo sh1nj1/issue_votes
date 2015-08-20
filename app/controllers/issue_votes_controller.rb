@@ -95,7 +95,6 @@ class IssueVotesController < ApplicationController
     @votes_rows = []
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = VotingOrganization.find(vote_user.voting_organization_id).name
       user_vote = {
         :user_id => vote_user.id,
         :Login => vote_user.login,
@@ -116,11 +115,20 @@ class IssueVotesController < ApplicationController
     @votes_rows_org = {}
     @votes.each do |vote|
       vote_user = User.find(vote.user_id)
-      vote_org = VotingOrganization.find(vote_user.voting_organization_id).name
-      if @votes_rows_org[vote_org]
-        @votes_rows_org[vote_org] += vote.vote_value
+      vote_org = VotingOrganization.where(vote_user.voting_organization_id).take
+      if vote_org
+        vote_org_name = vote_org.name
+        if @votes_rows_org[vote_org_name]
+          @votes_rows_org[vote_org_name] += vote.vote_value
+        else
+          @votes_rows_org[vote_org_name] = vote.vote_value
+        end
       else
-        @votes_rows_org[vote_org] = vote.vote_value
+        if @votes_rows_org['Independent']
+          @votes_rows_org['Independent'] += vote.vote_value
+        else
+          @votes_rows_org['Independent'] = vote.vote_value
+        end
       end
     end
     @votes_rows_org

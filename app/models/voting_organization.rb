@@ -4,7 +4,7 @@ class VotingOrganization < ActiveRecord::Base
   unloadable
 
   self.table_name = 'voting_organizations'
-  has_many :users, :class_name => 'User', :dependent => :nullify
+  has_many :users, :class_name => 'User', :dependent => :nullify, :inverse_of => :voting_organization
 
   validates :name, presence: true, uniqueness: true
   attr_protected :id
