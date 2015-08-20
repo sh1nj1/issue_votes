@@ -16,6 +16,7 @@ en:
   field_edit: Edit
   field_delete: Delete
   label_voting_organization_edit: Edit
+  label_link_voting_organization_new: New voting organization
   label_voting_organization_delete: Delete
   label_issue_vote_plural: Issue votes
   voting_organization_plural: Voting organizations

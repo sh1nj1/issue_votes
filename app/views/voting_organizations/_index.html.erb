@@ -3,7 +3,7 @@
 <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js' %>
 <%= stylesheet_link_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' %>
 <%= stylesheet_link_tag '//cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css' %>
-<p><%= link_to l(:label_voting_organization_new), new_voting_organization_path(:redirect_user_id => @user.id), :class => 'icon icon-add' %></p>
+<p><%= link_to l(:label_link_voting_organization_new), new_voting_organization_path(:redirect_user_id => @user.id), :class => 'icon icon-add' %></p>
 <table id="table-voting-organizations" class="display compact" style="width:100%" >
   <thead>
   <tr>
