@@ -22,6 +22,7 @@ en:
   voting_organization_plural: Voting organizations
   button_voting_report: Voting report
   button_save: Save
+  independent: Independent
   title_voting_organization_new: New voting organization
   title_voting_organization_edit: Edit voting organization
   label_voting_organization_confirm_delete: You are about to delete a voting organization, please confirm.

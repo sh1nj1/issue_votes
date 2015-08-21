@@ -5,7 +5,7 @@ Rails.configuration.to_prepare do
   require_dependency 'patches/issue_query_patch'
   require_dependency 'patches/issue_patch'
   require_dependency 'patches/issues_controller_patch'
-  require_dependency 'patches/user_patch'
+  require_dependency 'patches/user_issue_votes_patch'
   require_dependency 'patches/users_controller_patch'
   require_dependency 'patches/users_helper_patch'
   require_dependency 'patches/project_patch'

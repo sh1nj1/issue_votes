@@ -25,7 +25,7 @@ class IssueVotesController < ApplicationController
     issue = Issue.find(params[:issue_id])
     if issue.nil?
       flash[:error] = 'Issue not found.'
-      redirect_to home_url + issues
+      redirect_to home_url + 'issues/'
     else
       begin
         issue.vote
@@ -43,7 +43,7 @@ class IssueVotesController < ApplicationController
     issue = Issue.find(params[:issue_id])
     if issue.nil?
       flash[:error] = 'Issue not found.'
-      redirect_to home_url + issues
+      redirect_to home_url + 'issues/'
     else
       begin
         issue.remove_vote
@@ -124,10 +124,10 @@ class IssueVotesController < ApplicationController
           @votes_rows_org[vote_org_name] = vote.vote_value
         end
       else
-        if @votes_rows_org['Independent']
-          @votes_rows_org['Independent'] += vote.vote_value
+        if @votes_rows_org[l(:independent)]
+          @votes_rows_org[l(:independent)] += vote.vote_value
         else
-          @votes_rows_org['Independent'] = vote.vote_value
+          @votes_rows_org[l(:independent)] = vote.vote_value
         end
       end
     end
