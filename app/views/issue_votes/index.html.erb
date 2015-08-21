@@ -53,3 +53,27 @@
     </table>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  $(function() {
+
+    if (('#table-votes').length) {
+
+      $('#table-votes').DataTable({
+      paging: false,
+      scrollY: 350
+      //    autoWidth: true,
+      });
+
+      $('#table-votes-org').DataTable({
+      paging: false,
+      scrollY: 200,
+      aoColumns: [
+      {sWidth: '100px'},
+      {sWidth: '50px'},
+      ]
+      });
+    }
+
+  });
+<% end %>

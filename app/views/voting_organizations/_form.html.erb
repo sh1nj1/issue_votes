@@ -6,3 +6,15 @@
        <%= f.hidden_field :redirect_user_id, :required => true, :value => params[:redirect_user_id] %>
   </fieldset>
 </div>
+
+<%= javascript_tag do %>
+  $(function() {
+    if (('#table-voting-organizations').length) {
+      $('#table-voting-organizations').DataTable({
+      paging: false,
+      scrollY: 350
+      //    autoWidth: true,
+      });
+    }
+  });
+<% end %>
