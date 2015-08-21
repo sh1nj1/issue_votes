@@ -26,3 +26,14 @@
   <% end %>
   </tbody>
 </table>
+<%= javascript_tag do %>
+  $(function() {
+    if (('#table-voting-organizations').length) {
+      $('#table-voting-organizations').DataTable({
+        paging: false,
+        scrollY: 350
+        //    autoWidth: true,
+      });
+    }
+  });
+<% end %>
