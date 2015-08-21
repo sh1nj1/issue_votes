@@ -8,6 +8,7 @@ class IssueVote < ActiveRecord::Base
   belongs_to :user, :class_name => 'User', :foreign_key => 'user_id', :inverse_of => :issue_votes
 
   validates :user_id, :issue_id, presence: true
+  after_destroy :update_votes_total
 
   # VoteValidator's "validate()" -method gets called when "valid()" is called on this activerecord object.
   validates_with VoteValidator
@@ -46,6 +47,17 @@ class IssueVote < ActiveRecord::Base
   def to_s
     return self.user.name + ': ' + self.vote_value.to_s
   end
+
+  # Update issues's total votes upon user deletion.
+  def update_votes_total
+    issue = self.issue
+    if issue
+      issue.update_votes_total
+      issue.save
+    end
+  end
+
+  private :update_votes_total
 
 #  def valid_vote?(user = User.current)
 #    return if IssueVote.find(:user_id => user_id, :issue_id => issue_id)

@@ -11,8 +11,6 @@ module KohaSuomiIssueVotes
           has_many :issue_votes, :class_name => 'IssueVote', :dependent => :destroy, :inverse_of => :user
           belongs_to :voting_organization, :class_name => 'VotingOrganization', :inverse_of => :users
 
-          before_destroy :update_votes_total
-
         end
 
       end
@@ -28,19 +26,6 @@ module KohaSuomiIssueVotes
           nil if issue_id.nil?
 
           IssueVote.find_by(:user_id => self.id, :issue_id => issue_id)
-        end
-
-        # Update issues's total votes upon user deletion.
-        def update_votes_total
-          votes = self.issue_votes
-          if votes
-            votes.each do |vote|
-              issue = vote.issue
-              if issue
-                issue.update_votes_total
-              end
-            end
-          end
         end
 
       end
