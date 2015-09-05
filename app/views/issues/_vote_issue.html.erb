@@ -1,11 +1,17 @@
-<% if User.current.allowed_to?(:vote_issue, @project) %>
-<tr>
-  <% if @already_voted.nil? %>
-    <td><b>Votes: </b> <%= @issue.votes_total %><a class ='icon icon-vote-issue' href='/issue_votes/vote?issue_id=<%= @issue.id %>'>Vote</a></td>
-  <% else %>
-    <td><b>Votes: </b><%= @issue.votes_total %>
-      <a class ='icon icon-already-voted'>Already voted</a>(<a class ='icon icon-remove-vote' href='/issue_votes/remove?issue_id=<%= @issue.id %>'></a>)
-    </td>
-  <% end %>
-</tr>
+<% if @project.enabled_modules.find_by(:name => 'issue_votes') %>
+  <tr>
+    <% if @already_voted.nil? %>
+      <td><b>Votes: </b> <%= @issue.votes_total %>
+        <% if User.current.allowed_to?(:vote_issue, @project) %>
+          <a class ='icon icon-vote-issue' href='/issue_votes/vote?issue_id=<%= @issue.id %>'>Vote</a>
+        <% end %>
+      </td>
+    <% else %>
+      <td><b>Votes: </b><%= @issue.votes_total %>
+        <% if User.current.allowed_to?(:vote_issue, @project) %>
+        <a class ='icon icon-already-voted'>Already voted</a>(<a class ='icon icon-remove-vote' href='/issue_votes/remove?issue_id=<%= @issue.id %>'></a>)
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
 <% end %>
