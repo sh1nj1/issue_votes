@@ -23,12 +23,13 @@ class IssueVotesController < ApplicationController
   # Voting action for the parameter-given issue.
   def vote
     issue = Issue.find(params[:issue_id])
+    vote_value = params[:vote_value].to_i
     if issue.nil?
       flash[:error] = 'Issue not found.'
       redirect_to home_url + 'issues/'
     else
       begin
-        issue.vote
+        issue.vote(vote_value)
         issue.save
         flash[:notice] = 'Vote added successfully!'
       rescue Exception => e

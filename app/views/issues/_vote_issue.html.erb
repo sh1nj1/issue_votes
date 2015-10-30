@@ -3,7 +3,8 @@
     <% if @already_voted.nil? %>
       <td><b>Votes: </b> <%= @issue.votes_total %>
         <% if User.current.allowed_to?(:vote_issue, @project) %>
-          <a class ='icon icon-vote-issue' href='/issue_votes/vote?issue_id=<%= @issue.id %>'>Vote</a>
+              <a href='/issue_votes/vote?issue_id=<%= @issue.id %>&vote_value=1'>+1</a>
+              <a href='/issue_votes/vote?issue_id=<%= @issue.id %>&vote_value=-1'>-1</a>
         <% end %>
       </td>
     <% else %>

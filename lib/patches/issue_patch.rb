@@ -15,7 +15,7 @@ module KohaSuomiIssueVotes
       module InstanceMethods
 
         # Adds a vote for this issue for the current user. No params needed (user = user.Current).
-        def vote
+        def vote(vote_value = 1)
           # Get the vote weight custom field value for this user.
           weight_custom_field = CustomField.find_by(:name => 'Vote weight')
           weight_value_user = 1
@@ -27,7 +27,7 @@ module KohaSuomiIssueVotes
           vote.issue_id = self.id
           vote.project_id = self.project_id
           unless weight_value_user.nil?
-            vote.vote_value = weight_value_user
+            vote.vote_value = vote_value * weight_value_user
           end
           if vote.save
             self.update_votes_total
